@@ -1,0 +1,11 @@
+'''
+This is a template which, once filled with app and user tokens, should be renamed as 
+settings.py so that, server can use it to authenticate Twitter requests.
+'''
+conf = {
+  "twitterEndpoint": "https://api.twitter.com",
+  "consumerKey": "appConsumerKey",
+  "consumerSecret": "appConsumerSecret",
+  "accessToken": "userAccessToken",
+  "accessSecret": "userAccessSecret"
+}

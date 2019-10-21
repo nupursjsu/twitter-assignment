@@ -1,0 +1,206 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "description": "#fourreal Twitter APIs",
+    "version": "1.0.0",
+    "title": "#fourreal Twitter APIs",
+    "contact": {
+      "email": "nupur.yadav@sjsu.edu"
+    },
+    "license": {
+      "name": "MIT",
+      "url": "https://opensource.org/licenses/MIT"
+    }
+  },
+  "servers": [
+    {
+      "url": ""
+    }
+  ],
+  "tags": [
+    {
+      "name": "Twitter APIs",
+      "description": "APIs for tweet manipulation"
+    }
+  ],
+  "paths": {
+    "/v1/tweets/{id}": {
+      "parameters": [
+        {
+          "name": "tweetId",
+          "in": "path",
+          "required": true,
+          "description": "ID of the Tweet we want to work on",
+          "type": "string",
+          "schema": {
+            "$ref": "#/components/schemas/id"
+          }
+        }
+      ],
+      "get": {
+        "tags": [
+          "Twitter APIs"
+        ],
+        "summary": "Returns Details about a Specific Tweet",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Tweet"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/components/schemas/BadRequest"
+            }
+          }
+        }
+      },
+      "delete": {
+        "tags": [
+          "Twitter APIs"
+        ],
+        "summary": "Delete a Tweet",
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Success"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/components/schemas/BadRequest"
+            }
+          }
+        }
+      }
+    },
+    "/v1/tweets": {
+      "post": {
+        "tags": [
+          "Twitter APIs"
+        ],
+        "summary": "Post a tweet on the user's timeline",
+        "requestBody": {
+          "description": "Status Object",
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "$ref": "#/components/schemas/TweetInput"
+              }
+            }
+          }
+        },
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Tweet"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/components/schemas/BadRequest"
+            }
+          }
+        }
+      },
+      "get": {
+        "tags": [
+          "Twitter APIs"
+        ],
+        "summary": "Get all tweets for a user",
+        "produces": [
+          "application/json"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK",
+            "schema": {
+              "$ref": "#/components/schemas/Tweets"
+            }
+          },
+          "400": {
+            "description": "Bad Request",
+            "schema": {
+              "$ref": "#/components/schemas/BadRequest"
+            }
+          }
+        }
+      }
+    }
+  },
+  "components": {
+    "schemas": {
+      "TweetInput": {
+        "type": "object",
+        "properties": {
+          "status": {
+            "type": "string",
+            "format": "tweet text"
+          }
+        }
+      },
+      "Success": {
+        "type": "object",
+        "properties": {
+          "success": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "BadRequest": {
+        "type": "object",
+        "properties": {
+          "error": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "id": {
+        "properties": {
+          "id": {
+            "type": "string"
+          }
+        }
+      },
+      "Tweet": {
+        "type": "object",
+        "properties": {
+          "contributor": {
+            "type": "string",
+            "format": "string"
+          },
+          "id": {
+            "type": "long",
+            "format": "long"
+          },
+          "id_str": {
+            "type": "string",
+            "format": "string"
+          },
+          "text": {
+            "type": "string",
+            "format": "string"
+          }
+        }
+      },
+      "Tweets": {
+        "type": "array",
+        "items": {
+          "$ref": "#/components/schemas/Tweet"
+        }
+      }
+    }
+  }
+}
